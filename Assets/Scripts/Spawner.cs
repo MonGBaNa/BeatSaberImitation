@@ -134,7 +134,11 @@ public class Spawner : MonoBehaviour {
     }
 
     private void SongStart() {
-        _audio.Play();
+        Invoke(nameof(PlaySong), 0.2f);
         songStart = true;
+    }
+
+    private void PlaySong() {
+        _audio.Play();
     }
 }
