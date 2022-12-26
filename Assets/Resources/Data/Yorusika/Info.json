@@ -1,0 +1,62 @@
+{
+  "_version": "2.0.0",
+  "_songName": "もしも命が描けたら",
+  "_songSubName": "",
+  "_songAuthorName": "YOASOBI",
+  "_levelAuthorName": "",
+  "_beatsPerMinute": 120,
+  "_shuffle": 0,
+  "_shufflePeriod": 0.5,
+  "_previewStartTime": 1,
+  "_previewDuration": 30,
+  "_songFilename": "song.egg",
+  "_coverImageFilename": "cover.jpg",
+  "_environmentName": "KDAEnvironment",
+  "_songTimeOffset": 0,
+  "_customData": {
+    "_contributors": [],
+    "_editors": {
+      "_lastEditedBy": "MMA2",
+      "MMA2": {
+        "version": "4.8.4a-j6"
+      },
+      "beatsage": {
+        "version": "2.0.0",
+        "id": "c8513e52998d4a7c979f3537a6d43b17",
+        "events": []
+      }
+    }
+  },
+  "_difficultyBeatmapSets": [
+    {
+      "_beatmapCharacteristicName": "Standard",
+      "_difficultyBeatmaps": [
+        {
+          "_difficulty": "Expert",
+          "_difficultyRank": 7,
+          "_beatmapFilename": "ExpertStandard.dat",
+          "_noteJumpMovementSpeed": 12,
+          "_noteJumpStartBeatOffset": 0,
+          "_customData": {
+            "_editorOffset": 0,
+            "_editorOldOffset": 0,
+            "_warnings": [],
+            "_information": [],
+            "_suggestions": [],
+            "_requirements": [],
+            "_colorRight": {
+              "r": 0.46858346462249756,
+              "g": 0.5215991139411926,
+              "b": 0.7529412508010864
+            },
+            "_colorLeft": {
+              "r": 1,
+              "g": 0.4003381133079529,
+              "b": 0.39554786682128906
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

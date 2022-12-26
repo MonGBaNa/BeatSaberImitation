@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum Mode {
-    Beat,
-    Second
+public enum Diff {
+    Easy,
+    Normal,
+    Hard,
+    Expert,
+    ExpertPlus
 }
 
 [System.Serializable]
@@ -20,6 +23,7 @@ public class NoteInfo {
 public class Spawner : MonoBehaviour {
     public DatParsing parse;
     public DatInfo info;
+
     public AudioSource _audio;
 
     public string songName = "";
@@ -32,6 +36,9 @@ public class Spawner : MonoBehaviour {
     public int index = 0;
     public int dir = 0;
 
+    public Diff difficulty = Diff.Easy;
+    public SongInfo songInfo;
+
     private Dictionary<int, List<Transform>> pointDic = new Dictionary<int, List<Transform>>();
     private int[] direction = new int[]{180, 0, -90, 90, -135, 135, -45, 45,0};
 
@@ -43,6 +50,15 @@ public class Spawner : MonoBehaviour {
     public void Start() {
         PointDicInit();
         info = parse.GetInfo(songName);
+        songInfo = parse.GetSongInfo(songName);
+        double.TryParse(songInfo._beatsPerMinute, out bpm);
+        if(bpm == -1) {
+            throw new MissingReferenceException("Cant Find BPM");
+        }
+        cubeSpeed = songInfo._difficultyBeatmapSets[0].GetDifficultyMoveSpeed(difficulty.ToString());
+        AudioClip clip = Resources.Load<AudioClip>($"Musics/{songName}");
+        transform.Find("Music").GetComponent<AudioSource>().clip = clip;
+
         Invoke(nameof(SongStart), 0.2f);
     }
 
