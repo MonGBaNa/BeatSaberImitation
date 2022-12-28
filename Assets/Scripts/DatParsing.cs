@@ -54,8 +54,8 @@ public class SongInfo {
 
 public class DatParsing : MonoBehaviour {
 
-    public DatInfo GetInfo(string SongName) {
-        Stream readStream = new FileStream(Application.dataPath + $"/Resources/Data/{SongName}/Song.json", FileMode.Open);
+    public DatInfo GetInfo(string SongName, Diff difficulty) {
+        Stream readStream = new FileStream(Application.dataPath + $"/Resources/Data/{SongName}/Map/{difficulty}.json", FileMode.Open);
         byte[] data = new byte[readStream.Length];
         readStream.Read(data, 0, data.Length);
         readStream.Close();

@@ -30,7 +30,7 @@ public class Cube : MonoBehaviour {
         while (true) {
             elapsed += Time.deltaTime;
             float t = elapsed / targetTime;
-            transform.localPosition = Vector3.Lerp(originPos, originPos - transform.forward * 16, t);
+            transform.localPosition = Vector3.Lerp(originPos, originPos - transform.forward * 18, t);
             if (t >= 1) break;
             yield return null;
         }

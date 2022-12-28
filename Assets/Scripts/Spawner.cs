@@ -49,12 +49,13 @@ public class Spawner : MonoBehaviour {
 
     public void Start() {
         PointDicInit();
-        info = parse.GetInfo(songName);
         songInfo = parse.GetSongInfo(songName);
         double.TryParse(songInfo._beatsPerMinute, out bpm);
         if(bpm == -1) {
             throw new MissingReferenceException("Cant Find BPM");
         }
+
+        info = parse.GetInfo(songName, difficulty);
         cubeSpeed = songInfo._difficultyBeatmapSets[0].GetDifficultyMoveSpeed(difficulty.ToString());
         AudioClip clip = Resources.Load<AudioClip>($"Musics/{songName}");
         transform.Find("Music").GetComponent<AudioSource>().clip = clip;
