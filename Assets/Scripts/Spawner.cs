@@ -21,13 +21,13 @@ public class NoteInfo {
 }
 
 public class Spawner : MonoBehaviour {
-    public DatParsing parse;
     public DatInfo info;
 
     public AudioSource _audio;
 
     public string songName = "";
-    //public Mode mode = Mode.Beat;
+    public Diff difficulty = Diff.Easy;
+
     public double bpm;
     public int cubeSpeed = 0;
 
@@ -36,7 +36,6 @@ public class Spawner : MonoBehaviour {
     public int index = 0;
     public int dir = 0;
 
-    public Diff difficulty = Diff.Easy;
     public SongInfo songInfo;
 
     private Dictionary<int, List<Transform>> pointDic = new Dictionary<int, List<Transform>>();
@@ -46,19 +45,33 @@ public class Spawner : MonoBehaviour {
     private int curIndex = 0;
 
     bool songStart = false;
+    bool songEnd = false;
 
-    public void Start() {
+    private End_UI EndUI = null;
+
+    private void Start() {
+        Invoke(nameof(Init), 0.1f);
+    }
+
+    public void Init() {
         PointDicInit();
-        songInfo = parse.GetSongInfo(songName);
+        songName = GameManager.Instance.ChoosenSong;
+        difficulty = (Diff)GameManager.Instance.ChoosenDiff;
+
+        songInfo = DatParsing.GetSongInfo(songName);
         double.TryParse(songInfo._beatsPerMinute, out bpm);
         if(bpm == -1) {
             throw new MissingReferenceException("Cant Find BPM");
         }
 
-        info = parse.GetInfo(songName, difficulty);
+        info = DatParsing.GetInfo(songName, difficulty);
         cubeSpeed = songInfo._difficultyBeatmapSets[0].GetDifficultyMoveSpeed(difficulty.ToString());
         AudioClip clip = Resources.Load<AudioClip>($"Musics/{songName}");
         transform.Find("Music").GetComponent<AudioSource>().clip = clip;
+
+        EndUI = FindObjectOfType<End_UI>(true);
+        EndUI.Init();
+        EndUI.DeActive();
 
         Invoke(nameof(SongStart), 0.2f);
     }
@@ -79,13 +92,17 @@ public class Spawner : MonoBehaviour {
     }
 
     void Update() {
-        if (!songStart) return;
-        if (curIndex > info._notes.Count - 1) {
-            enabled = false;
-            print("출력 끝");
-            return;
+        if (!songStart || songEnd) return;
+        if (curIndex == info._notes.Count) {
+            if (!_audio.isPlaying) {
+                enabled = false;
+                songEnd = true;
+                print("출력 끝");
+                EndUI.Active();
+                return;
+            }
         }
-        if (timer >= info._notes[curIndex]._time * 60d / bpm) { CreateCube(); }
+        if (curIndex != info._notes.Count && timer >= info._notes[curIndex]._time * 60d / bpm) { CreateCube(); }
         //switch (mode) {
         //    case Mode.Beat:
         //        if(timer >= info._notes[curIndex]._time * 60d / bpm) { CreateCube(); }
@@ -126,15 +143,15 @@ public class Spawner : MonoBehaviour {
         Cube pref = null;
         switch (type) {
             case 0:
-                if (cutDir == 8) { pref = Resources.Load<Cube>("Prefabs/RedCubeDot"); }
-                else { pref = Resources.Load<Cube>("Prefabs/RedCube"); }
+                if (cutDir == 8) { pref = Resources.Load<Cube>("Prefabs/RedCubeDotFBX"); }
+                else { pref = Resources.Load<Cube>("Prefabs/RedCubeFBX"); }
                 break;
             case 1:
-                if (cutDir == 8) { pref = Resources.Load<Cube>("Prefabs/BlueCubeDot"); }
-                else { pref = Resources.Load<Cube>("Prefabs/BlueCube"); }
+                if (cutDir == 8) { pref = Resources.Load<Cube>("Prefabs/BlueCubeDotFBX"); }
+                else { pref = Resources.Load<Cube>("Prefabs/BlueCubeFBX"); }
                 break;
             case 3:
-                pref = Resources.Load<Cube>("Prefabs/Bomb");
+                pref = Resources.Load<Cube>("Prefabs/BombFBX");
                 break;
         }
         if (pref == null) {
