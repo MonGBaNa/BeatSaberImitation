@@ -55,24 +55,24 @@ public class SongInfo {
 public class DatParsing : MonoBehaviour {
 
     public static DatInfo GetInfo(string SongName, Diff? difficulty) {
-        Stream readStream = new FileStream(Application.dataPath + $"/Resources/Data/{SongName}/Map/{difficulty}.json", FileMode.Open);
-        byte[] data = new byte[readStream.Length];
-        readStream.Read(data, 0, data.Length);
-        readStream.Close();
-
-        string JsonData = Encoding.UTF8.GetString(data);
-        DatInfo info = JsonConvert.DeserializeObject<DatInfo>(JsonData);
+        TextAsset json = Resources.Load<TextAsset>($"Data/{SongName}/Map/{difficulty}");
+        //Stream readStream = new FileStream(Application.persistentDataPath + $"/Resources/Data/{SongName}/Map/{difficulty}.json", FileMode.Open);
+        //byte[] data = new byte[readStream.Length];
+        //readStream.Read(data, 0, data.Length);
+        //readStream.Close();
+        //string JsonData = Encoding.UTF8.GetString(data);
+        DatInfo info = JsonConvert.DeserializeObject<DatInfo>(json.text);
         return info;
     }
 
     public static SongInfo GetSongInfo(string SongName) {
-        Stream readStream = new FileStream(Application.dataPath + $"/Resources/Data/{SongName}/Info.json", FileMode.Open);
-        byte[] data = new byte[readStream.Length];
-        readStream.Read(data, 0, data.Length);
-        readStream.Close();
-
-        string JsonData = Encoding.UTF8.GetString(data);
-        SongInfo info = JsonConvert.DeserializeObject<SongInfo>(JsonData);
+        TextAsset json = Resources.Load<TextAsset>($"Data/{SongName}/Info");
+        //Stream readStream = new FileStream(Application.persistentDataPath + $"/Resources/Data/{SongName}/Info.json", FileMode.Open);
+        //byte[] data = new byte[readStream.Length];
+        //readStream.Read(data, 0, data.Length);
+        //readStream.Close();
+        //string JsonData = Encoding.UTF8.GetString(data);
+        SongInfo info = JsonConvert.DeserializeObject<SongInfo>(json.text);
         return info;
     }
 }
