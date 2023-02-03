@@ -12,7 +12,14 @@
             {"_time":45,"_lineIndex":1,"_lineLayer":0,"_type":0,"_cutDirection":1},
             {"_time":47,"_lineIndex":2,"_lineLayer":0,"_type":1,"_cutDirection":1},
             {"_time":49,"_lineIndex":0,"_lineLayer":0,"_type":0,"_cutDirection":2},
-            {"_time":51,"_lineIndex":3,"_lineLayer":0,"_type":1,"_cutDirection":3},
+          {
+            "_time": 51,
+            "_lineIndex": 3,
+            "_lineLayer": 0,
+            "_type": 1,
+            "_cutDirection": 3
+          },
+
             {"_time":53,"_lineIndex":1,"_lineLayer":0,"_type":0,"_cutDirection":1},
             {"_time":53,"_lineIndex":2,"_lineLayer":0,"_type":1,"_cutDirection":1},
             {"_time":55,"_lineIndex":1,"_lineLayer":0,"_type":0,"_cutDirection":0},

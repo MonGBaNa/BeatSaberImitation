@@ -113,6 +113,7 @@ public class Spawner : MonoBehaviour {
                 return;
             }
         }
+
         if (curIndex != info._notes.Count && timer >= info._notes[curIndex]._time * 60d / bpm) { CreateCube(); }
         //switch (mode) {
         //    case Mode.Beat:
