@@ -48,6 +48,13 @@ public class Spawner : MonoBehaviour {
     bool songEnd = false;
 
     private End_UI EndUI = null;
+    private Dead_UI DeadUI = null;
+
+    Cube blueCube = null;
+    Cube blueDotCube = null;
+    Cube redCube = null;
+    Cube redDotCube = null;
+    Cube Bomb = null;
 
     private void Start() {
         Invoke(nameof(Init), 0.1f);
@@ -72,6 +79,10 @@ public class Spawner : MonoBehaviour {
         EndUI = FindObjectOfType<End_UI>(true);
         EndUI.Init();
         EndUI.DeActive();
+
+        DeadUI = FindObjectOfType<Dead_UI>(true);
+        DeadUI.Init();
+        DeadUI.DeActive();
 
         Invoke(nameof(SongStart), 0.2f);
     }
@@ -136,35 +147,7 @@ public class Spawner : MonoBehaviour {
     }
 
     private void CreateCube() {
-        int type = info._notes[curIndex]._type;
-        int lineIndex = info._notes[curIndex]._lineIndex;
-        int lineLayer = info._notes[curIndex]._lineLayer;
-        int cutDir = info._notes[curIndex]._cutDirection;
-        Cube pref = null;
-        switch (type) {
-            case 0:
-                if (cutDir == 8) { pref = Resources.Load<Cube>("Prefabs/RedCubeDotFBX"); }
-                else { pref = Resources.Load<Cube>("Prefabs/RedCubeFBX"); }
-                break;
-            case 1:
-                if (cutDir == 8) { pref = Resources.Load<Cube>("Prefabs/BlueCubeDotFBX"); }
-                else { pref = Resources.Load<Cube>("Prefabs/BlueCubeFBX"); }
-                break;
-            case 3:
-                pref = Resources.Load<Cube>("Prefabs/BombFBX");
-                break;
-        }
-        if (pref == null) {
-            print("No Prefab");
-            return;
-        }
-
-        Cube cube = Instantiate(pref, pointDic[lineLayer][lineIndex]);
-        cube.moveSpeed = cubeSpeed;
-        cube.transform.localPosition = Vector3.zero;
-        cube.transform.Rotate(transform.forward, direction[cutDir]);
-        cube.isDot = cutDir == 8;
-        curIndex++;
+        StartCoroutine(IEMakeCube(info._notes[curIndex++]));
     }
 
     private void SongStart() {
@@ -172,7 +155,59 @@ public class Spawner : MonoBehaviour {
         songStart = true;
     }
 
+    public void SongStop() {
+        _audio.Stop();
+        songEnd = true;
+        DeadUI.Active();
+        print("Die");
+    }
+
     private void PlaySong() {
         _audio.Play();
+    }
+
+    IEnumerator IEMakeCube(Note note) {
+        yield return null;
+        int type = note._type;
+        int lineIndex = note._lineIndex;
+        int lineLayer = note._lineLayer;
+        int cutDir = note._cutDirection;
+
+        Cube pref = null;
+        switch (type) {
+            case 0:
+                if (cutDir == 8) {
+                    if (redDotCube == null) { redDotCube = Resources.Load<Cube>("Prefabs/RedCubeDotFBX"); }
+                    pref = redDotCube;
+                }
+                else {
+                    if (redCube == null) { redCube = Resources.Load<Cube>("Prefabs/RedCubeFBX"); }
+                    pref = redCube;
+                }
+                break;
+            case 1:
+                if (cutDir == 8) {
+                    if (blueDotCube == null) { blueDotCube = Resources.Load<Cube>("Prefabs/BlueCubeDotFBX"); }
+                    pref = blueDotCube;
+                }
+                else {
+                    if (blueCube == null) { blueCube = Resources.Load<Cube>("Prefabs/BlueCubeFBX"); }
+                    pref = blueCube;
+                }
+                break;
+            case 3:
+                if (Bomb == null) { Bomb = Resources.Load<Cube>("Prefabs/BombFBX"); }
+                pref = Bomb;
+                break;
+        }
+        if (pref == null) {
+            print("No Prefab");
+            yield break;
+        }
+        Cube cube = Instantiate(pref, pointDic[lineLayer][lineIndex]);
+        //cube.transform.localPosition = Vector3.zero;
+        cube.moveSpeed = cubeSpeed;
+        cube.transform.Rotate(transform.forward, direction[cutDir]);
+        cube.isDot = cutDir == 8;
     }
 }

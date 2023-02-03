@@ -21,7 +21,6 @@ public class Saver : MonoBehaviour {
     private GameObject[] slices;
 
     private bool canCut = false;
-
     RaycastHit hit;
 
     private void Start() {
@@ -67,6 +66,7 @@ public class Saver : MonoBehaviour {
         Vector3 transformedStartingPoint = other.gameObject.transform.InverseTransformPoint(_triggerEnterTipPosition);
 
         if (canCut) {
+            FindObjectOfType<GuageTest>(true).Hit();
             //0¹ø a, 1¹ø b
             slices = MeshSlice.Slicer(other.gameObject, transformedNormal, transformedStartingPoint, mat);
             slices[0].GetComponent<Rigidbody>().AddForce(-normal * 3f, ForceMode.Impulse);

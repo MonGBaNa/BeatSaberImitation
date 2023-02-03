@@ -270,9 +270,13 @@ public class MeshSlice : MonoBehaviour {
 
 
         //Hide original object
-
-        Destroy(_target);
-        //_target.SetActive(false);
+        _target.GetComponent<MeshCollider>().enabled = false;
+        _target.GetComponent<MeshRenderer>().enabled = false;
+        _target.GetComponent<Cube>().enabled = false;
+        _target.GetComponentInChildren<CutFeedBack>().FeedBack(_target.name.Substring(0, 1) == "R" ? true : false);
+        Destroy(_target, 1f);
+        //타격사운드
+        
 
         //Return cutted object
 

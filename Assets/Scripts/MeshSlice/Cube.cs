@@ -19,7 +19,7 @@ public class Cube : MonoBehaviour {
     void Update() {
         Debug.DrawRay(transform.position, transform.up);
         if (!isMove) return;
-        transform.position += Time.deltaTime * -transform.forward * moveSpeed;
+        transform.position += Time.smoothDeltaTime * -transform.forward * moveSpeed;
         if(transform.position.z < -5) {
             Destroy(gameObject);
         }

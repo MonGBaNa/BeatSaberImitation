@@ -72,7 +72,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5720647890785142280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -582,17 +582,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7103d23b219904aa04dd4ffc77a857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parse: {fileID: 0}
   info:
     _notes: []
   _audio: {fileID: 5720647891776040508}
   songName: BlindingLights
+  difficulty: 0
   bpm: 0
   cubeSpeed: 10
   layer: 0
   index: 0
   dir: 0
-  difficulty: 0
   songInfo:
     _beatsPerMinute: 
     _difficultyBeatmapSets: []
@@ -812,7 +811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5720647892659823029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
