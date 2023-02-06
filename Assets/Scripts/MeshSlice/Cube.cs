@@ -36,4 +36,8 @@ public class Cube : MonoBehaviour {
         }
         isMove = true;
     }
+
+    public void Boom() {
+        GetComponent<ParticleSystem>().Play();
+    }
 }

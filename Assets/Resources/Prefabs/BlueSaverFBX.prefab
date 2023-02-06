@@ -117,7 +117,7 @@ MonoBehaviour:
   mat: {fileID: 2100000, guid: c5ac7770200b19e4eb5a90a336837263, type: 2}
   targetLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   layDistance: 1.81
 --- !u!1 &4133574922374230431
 GameObject:

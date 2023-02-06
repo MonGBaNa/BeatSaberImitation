@@ -66,14 +66,24 @@ public class Saver : MonoBehaviour {
         Vector3 transformedStartingPoint = other.gameObject.transform.InverseTransformPoint(_triggerEnterTipPosition);
 
         if (canCut) {
-            FindObjectOfType<GuageTest>(true).Hit();
-            //0¹ø a, 1¹ø b
-            slices = MeshSlice.Slicer(other.gameObject, transformedNormal, transformedStartingPoint, mat);
-            slices[0].GetComponent<Rigidbody>().AddForce(-normal * 3f, ForceMode.Impulse);
-            slices[1].GetComponent<Rigidbody>().AddForce(normal * 3f, ForceMode.Impulse);
-            Destroy(slices[0], 1.5f);
-            Destroy(slices[1], 1.5f);
+            if (other.gameObject.layer == LayerMask.NameToLayer("Bomb")) {
+                FindObjectOfType<GuageTest>(true)?.Damaged();
+                other.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                other.gameObject.GetComponent<Cube>().Boom();
+                Destroy(other.gameObject, 0.5f);
+                print("ÆøÅº µ¥¹ÌÁö");
+            }
+            else {
+                FindObjectOfType<GuageTest>(true)?.Hit();
+                //0¹ø a, 1¹ø b
+                slices = MeshSlice.Slicer(other.gameObject, transformedNormal, transformedStartingPoint, mat);
+                slices[0].GetComponent<Rigidbody>().AddForce(-normal * 3f, ForceMode.Impulse);
+                slices[1].GetComponent<Rigidbody>().AddForce(normal * 3f, ForceMode.Impulse);
+                Destroy(slices[0], 1.5f);
+                Destroy(slices[1], 1.5f);
+            }
         }
+            
         canCut = false;
     }
 }

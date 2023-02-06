@@ -12,8 +12,10 @@ public class GuageTest : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Red") || other.gameObject.layer == LayerMask.NameToLayer("Blue")) {
-            print("Damaged");
+#if !DEVELOPMENT_BUILD
             Damaged();
+            print("Damaged");
+#endif
         }
     }
 

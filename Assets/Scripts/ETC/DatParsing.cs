@@ -28,7 +28,6 @@ public class DifficultyBeatmap {
 [System.Serializable]
 public class DifficultyBeatmapSet {
     public List<DifficultyBeatmap> _difficultyBeatmaps;
-
     /*
         Easy
         Normal
@@ -53,9 +52,9 @@ public class SongInfo {
 }
 
 public class DatParsing : MonoBehaviour {
-
     public static DatInfo GetInfo(string SongName, Diff? difficulty) {
         TextAsset json = Resources.Load<TextAsset>($"Data/{SongName}/Map/{difficulty}");
+        //빌드 시 FileStream으로 Json을 불러오지 못해서 TextAsset으로 변경
         //Stream readStream = new FileStream(Application.persistentDataPath + $"/Resources/Data/{SongName}/Map/{difficulty}.json", FileMode.Open);
         //byte[] data = new byte[readStream.Length];
         //readStream.Read(data, 0, data.Length);

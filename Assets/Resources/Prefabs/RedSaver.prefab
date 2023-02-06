@@ -315,6 +315,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  layDistance: 1
 --- !u!65 &6439872163882155002
 BoxCollider:
   m_ObjectHideFlags: 0
