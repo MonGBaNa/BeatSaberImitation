@@ -12,10 +12,8 @@ public class GuageTest : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Red") || other.gameObject.layer == LayerMask.NameToLayer("Blue")) {
-#if !DEVELOPMENT_BUILD
             Damaged();
             print("Damaged");
-#endif
         }
     }
 
@@ -34,10 +32,16 @@ public class GuageTest : MonoBehaviour {
     public void Hit() {
         hitCount++;
         hitCountText.text = $"Hit : {hitCount}";
+#if DEVELOPMENT_BUILD
+        if (hitCount % 2 == 0) {
+            guage.fillAmount = 1;
+        }
+#else
         if (hitCount % 10 == 0) {
             guage.fillAmount += 0.1f;
             if (guage.fillAmount >= 1)
                 guage.fillAmount = 1;
         }
+#endif
     }
 }
