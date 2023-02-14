@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  isDot: 0
+  isDot: 1
 --- !u!198 &1448068634
 ParticleSystem:
   m_ObjectHideFlags: 0

@@ -68,10 +68,10 @@ public class Saver : MonoBehaviour {
         if (canCut) {
             if (other.gameObject.layer == LayerMask.NameToLayer("Bomb")) {
                 FindObjectOfType<GuageTest>(true)?.Damaged();
+                Debug.Log("Bomb Damaged");
                 other.gameObject.GetComponent<MeshRenderer>().enabled = false;
                 other.gameObject.GetComponent<Cube>().Boom();
                 Destroy(other.gameObject, 0.5f);
-                print("ÆøÅº µ¥¹ÌÁö");
             }
             else {
                 FindObjectOfType<GuageTest>(true)?.Hit();

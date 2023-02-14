@@ -21,9 +21,11 @@ public class GuageTest : MonoBehaviour {
         guage.fillAmount -= 0.02f;
         if (guage.fillAmount <= 0) {
             guage.fillAmount = 0;
+#if !DEVELOPMENT_BUILD
             if (spawner == null)
                 spawner = FindObjectOfType<Spawner>();
             spawner.SongStop();
+#endif
         }
         hitCount = 0;
         hitCountText.text = "Hit : 0";
@@ -34,7 +36,9 @@ public class GuageTest : MonoBehaviour {
         hitCountText.text = $"Hit : {hitCount}";
 #if DEVELOPMENT_BUILD
         if (hitCount % 2 == 0) {
-            guage.fillAmount = 1;
+            guage.fillAmount += 0.3f;
+            if (guage.fillAmount >= 1)
+                guage.fillAmount = 1;
         }
 #else
         if (hitCount % 10 == 0) {
